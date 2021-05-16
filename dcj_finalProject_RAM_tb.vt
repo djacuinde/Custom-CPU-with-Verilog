@@ -1,0 +1,23 @@
+module RAM_tb ();
+    wire [13:0] data_o;
+    reg [13:0] data_i;
+    reg rd, wrt;
+    reg [5:0] address;
+
+    RAM mem1 (data_o, data_i, rd, wrt, address);
+
+    initial begin
+            rd <= 1'b0;
+            wrt <= 1'b0;
+            address <= 6'b000000;
+            data_i <= 14'b00000000000000;
+        #5  address <= 6'b000001;
+            rd <= 1'b1;
+        #5  rd <= 1'b0;
+            data_i <= 14'b00011000000000;
+            address <= 6'b000010;
+            wrt <= 1'b1;
+        #5  wrt <= 1'b0;
+    end
+
+endmodule

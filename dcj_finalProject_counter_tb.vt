@@ -1,0 +1,21 @@
+module counter_tb ();
+
+    wire [5:0] count;
+    reg enable, rst, clk;
+
+    counter C1 (count, enable, rst, clk);
+
+    initial begin
+            enable <= 1'b0;
+            rst <= 1'b1;
+            clk <= 1'b0;
+        #6
+            rst <= 1'b0;
+            enable <= 1'b1;
+        #400
+            $stop;
+    end
+
+    always #3 clk = ~clk;
+
+endmodule

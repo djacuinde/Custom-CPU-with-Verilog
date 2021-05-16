@@ -1,0 +1,16 @@
+module CPU_TB ();
+    wire [6:0] disp0, disp1, disp2, disp3, disp4, disp5, disp6, disp7, disp8, disp9, disp10, disp11, disp12, disp13;
+    wire [2:0] flags;
+    reg clk, rst;
+
+    CPU CPU1 (disp0, disp1, disp2, disp3, disp4, disp5, disp6, disp7, disp8, disp9, disp10, disp11, disp12, disp13, flags, clk, rst);
+
+    initial begin
+            rst <= 1'b1;
+            clk <= 1'b0;
+        #50 rst <= 1'b0;
+        #10000 $stop;
+    end
+
+    always #10 clk = ~clk;
+endmodule

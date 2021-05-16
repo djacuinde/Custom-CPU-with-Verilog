@@ -1,0 +1,43 @@
+module registerArray_TB ();
+
+    wire [13:0] rout;
+    reg [13:0] rin;
+    reg [7:0] ld;
+    reg [2:0] selrd;
+    reg clk, rst;
+
+    registerArray RA (rout, rin, ld, selrd, clk, rst);
+
+    initial begin
+            rin <= 14'b00000000000000;
+            ld <= 8'b00000000;
+            selrd <= 3'b000;
+            clk <= 1'b0;
+            rst <= 1'b1;
+        #4
+            rst <= 1'b0;
+        #8
+            selrd <= 3'b111;
+            rin <= 14'b00001111000011;
+        #6
+            ld <= 8'b00000010;
+        #6
+            ld <= 8'b00000000;
+            rin <= 14'b10000000000000;
+        #6
+            ld <= 8'b01000000;
+        #6
+            ld <= 8'b00000000;
+        #6
+            selrd <= 3'b001;
+        #6
+            selrd <= 3'b110;
+        #6
+            selrd <= 3'b000;
+        #12
+            $stop;
+    end
+
+    always #3 clk = ~clk;
+
+endmodule

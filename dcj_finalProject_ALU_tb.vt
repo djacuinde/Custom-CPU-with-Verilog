@@ -1,0 +1,31 @@
+module ALU_tb ();
+	wire [13:0] ALU_OUTPUT;
+	wire [2:0] ALU_FLAGS;
+
+	reg [13:0] A, B;
+	reg [4:0] ALU_OpCode;
+	reg rstFlags;
+
+	integer i;
+
+	ALU test(ALU_OUTPUT, ALU_FLAGS, A, B, ALU_OpCode, rstFlags);
+
+	initial begin
+		#5
+			rstFlags = 1'b1;
+		#5
+			rstFlags = 1'b0;
+			A = 14'b0101;
+			B = 14'b0011;
+			ALU_OpCode = 5'b00000;
+		#10
+			for (i=0; i<32; i=i+1)begin
+				#10 ALU_OpCode = ALU_OpCode + 5'b00001;
+				#10 rstFlags = 1'b1;
+				#1 rstFlags = 1'b0;
+			end
+		#5
+			$stop;
+	end
+
+endmodule
